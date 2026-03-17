@@ -1,0 +1,22 @@
+# Generated physical design files
+physical_design/results/*
+*.def
+*.rpt
+*.guide
+*.lib
+*.tlef
+
+# Simulation outputs
+*.vcd
+sim/simm/
+
+# Logs
+*.log
+
+# Images (optional, keep if needed)
+# *.png
+
+# Temporary / editor
+*~
+*.swp
+.DS_Store
