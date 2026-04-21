@@ -1,4 +1,6 @@
-module bist_alu_top (
+module bist_alu_top#(
+    parameter [15:0] TEST_CYCLES = 16
+) (
     input  clk,
     input  reset,
     input  bist_start,
@@ -10,7 +12,7 @@ module bist_alu_top (
     input  normal_enable,       
     
     // Power inputs
-    input  power_mode,           // 1: active, 0: sleep
+    input  power_mode,           
     input  bist_power_enable,    
     
     
@@ -79,7 +81,9 @@ module bist_alu_top (
     );
     
     // controller
-    bist_controller u_ctrl (
+    bist_controller #(
+        .TEST_CYCLES (TEST_CYCLES)
+    ) u_ctrl (
         .clk          (clk),
         .reset        (reset),
         .start        (bist_start),

@@ -9,9 +9,9 @@ module bist_controller (
 );
 
     parameter TEST_CYCLES = 16;
-
-    reg [4:0] count;
-    reg [4:0] count_gray;  // Gray counter for lower switching
+    localparam COUNTER_WIDTH = 16;
+    reg [COUNTER_WIDTH-1:0] count;
+    reg [COUNTER_WIDTH-1:0] count_gray;  // Gray counter for lower switching
     
     // State encoding
     localparam IDLE   = 2'b00;
@@ -26,19 +26,19 @@ module bist_controller (
     assign bist_clk_en = count_en;
     
     // Gray code conversion for counter 
-    function [4:0] bin2gray;
-        input [4:0] binary;
+    function [COUNTER_WIDTH-1:0] bin2gray;
+        input [COUNTER_WIDTH-1:0] binary;
         begin
             bin2gray = binary ^ (binary >> 1);
         end
     endfunction
     
-    function [4:0] gray2bin;
-        input [4:0] gray;
+    function [COUNTER_WIDTH-1:0] gray2bin;
+        input [COUNTER_WIDTH-1:0] gray;
         integer i;
         begin
-            gray2bin[4] = gray[4];
-            for (i = 3; i >= 0; i = i - 1)
+            gray2bin[COUNTER_WIDTH-1] = gray[COUNTER_WIDTH-1];
+            for (i = COUNTER_WIDTH-2; i >= 0; i = i - 1)
                 gray2bin[i] = gray2bin[i+1] ^ gray[i];
         end
     endfunction
